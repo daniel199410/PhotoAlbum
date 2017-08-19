@@ -3,6 +3,7 @@
 namespace PhotoAlbum;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Usuario extends Model
 {
@@ -18,10 +19,19 @@ class Usuario extends Model
             settype($value, 'object');
         if(is_object($value)){
             $this->nickname = isset($value->nickname) ? $value->nickname : null;
-            $this->avatar = isset($value->avatar) ? $value->avatar : null;
+            $this->password = isset($value->password) ? $value->password : null;
             $this->name = isset($value->name) ? $value->name : null;
         }
     }
 
-    
+    public function register(){
+        DB::table('Usuarios')->insert(
+            array(
+                'name' => $this->name, 
+                'nickname' => $this->nickname,
+                'password' => $this->password
+            )
+        );
+        return true;
+    }
 }

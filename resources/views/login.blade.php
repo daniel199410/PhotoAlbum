@@ -8,13 +8,24 @@
         {{ Html::style("css/estilos.css") }}
     </head>
     <body>
-        <h1></h1>
-        {!!Form::open(['action'=>'ControladorUsuario@index'])!!}
-            {!! Form::label('nombre', 'Nombre de usuario') !!}
-            {!! Form::Text('username') !!}
+        <h1>Bienvenido</h1>
+        <h2>Ingresar</h2>
+        {!!Form::open(['action'=>'ControladorUsuario@login'])!!}
+            {!! Form::label('nickname', 'Nickname') !!}
+            {!! Form::Text('nickname') !!}
             {!! Form::label('password', 'Contraseña') !!}
             {!! Form::password('password') !!}
             {!! Form::submit('Ingresar')!!}
+        {!!Form::close()!!}
+        <h2>Registrarse</h2>
+        {!!Form::open(['action'=>'ControladorUsuario@register'])!!}
+            {!! Form::label('r_nickname', 'Nickname') !!}
+            {!! Form::text('r_nickname') !!}
+            {!! Form::label('r_name', 'Nombre') !!}
+            {!! Form::Text('r_name') !!}              
+            {!! Form::label('r_password', 'Contraseña') !!}            
+            {!! Form::password('r_password') !!}                    
+            {!! Form::submit('Registrar')!!}
         {!!Form::close()!!}
     </body>
 </html>

@@ -11,4 +11,6 @@
 |
 */
 
-Route::get('login', 'ControladorUsuario@index');
+Route::get('/', 'ControladorUsuario@index');
+Route::post('submitLogin', 'ControladorUsuario@login');
+Route::post('submitRegister', 'ControladorUsuario@register');
