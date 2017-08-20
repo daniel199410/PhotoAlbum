@@ -2,8 +2,11 @@
 
 namespace PhotoAlbum\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use PhotoAlbum\Usuario;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ControladorUsuario extends Controller
 {
@@ -11,27 +14,40 @@ class ControladorUsuario extends Controller
         return view('login', ['title' => 'Bienvenido']);
     }
 
-    public function login(){
-        $username = $request->input('username');
-        $password = $request->input('password');       
+    public function login(Request $request){
+        $nickname = $request->input('nickname');
+        $password = $request->input('password');
+        $usuario = new Usuario(array('nickname' => $nickname, 'password' => $password));
+        if($usuario->exists()){
+            return ":)";
+        }else{
+            return redirect('/')->withErrors(array('wrongAuth'=>'Datos incorrectos'));
+            
+        }
     }
 
-    public function hola(){
-        return "Hola";
-    }
-
-    public function register(Request $request){             
-        $nickname = $request->input('r_nickname');
-        $password = encrypt($request->input('r_password')); 
+    public function register(Request $request){
         $name = $request->input('r_name');
-        $user_data = array(
-            'nickname' => $nickname,
-            'password' => $password,
-            'name' => $name
-        );  
-        $usuario = new Usuario($user_data);
-        if($usuario->register()){
-            return "Usuario insertado";
+        $nickname = $request->input('r_nickname');
+        $password = $request->input('r_password');
+        $user_data = array('name' => $name,'password' => encrypt($password),'nickname' => $nickname);
+        $usuario = new usuario($user_data);
+        $validator = Validator::make($user_data, [
+            'password' => 'required',
+            'name' => 'required',
+            'nickname' => 'required'
+        ]);
+        if($validator->fails()){
+            return redirect('/')->withErrors($validator);
+        }elseif($usuario->existeNick()){
+            return redirect('/')->withErrors(array('nick'=>'El nickname ya existe'));
+        }else{
+            $user = new Usuario;
+            $user->name = $name;
+            $user->nickname = $nickname;
+            $user->password = Hash::make($password);
+            $user->save();
+            return "Registrado";
         }
     }
 }

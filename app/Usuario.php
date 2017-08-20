@@ -4,10 +4,12 @@ namespace PhotoAlbum;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Usuario extends Model
 {
-    protected $usuario = "Usuarios";
+    protected $table = "Usuarios";
+    public $timestamps = false;
     private $persona;
     private $nickname;
     private $avatar;
@@ -33,5 +35,20 @@ class Usuario extends Model
             )
         );
         return true;
+    }
+
+    public function existeNick(){
+        return empty(DB::table('Usuarios')->where('nickname', $this->nickname)->get) ? false : true;
+    }
+
+    public function exists(){
+        $username = DB::table('Usuarios')->where('nickname', $this->nickname)->get();
+        if(!empty($username[0])){
+            $password = $username[0]->password;
+            if (Hash::check($this->password, $password)){
+                return true;
+            }
+        }
+        return false;
     }
 }

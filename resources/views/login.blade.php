@@ -16,16 +16,21 @@
             {!! Form::label('password', 'Contraseña') !!}
             {!! Form::password('password') !!}
             {!! Form::submit('Ingresar')!!}
+            <p>{!! $errors->first('wrongAuth')!!} </p>
         {!!Form::close()!!}
         <h2>Registrarse</h2>
-        {!!Form::open(['action'=>'ControladorUsuario@register'])!!}
+        {!!Form::open(array('action'=>'ControladorUsuario@register'))!!}
             {!! Form::label('r_nickname', 'Nickname') !!}
             {!! Form::text('r_nickname') !!}
+            <p>{{ empty(!$errors->first('nickname')) ? 'Ingresa un nickname' : '' }}</p>
+            <p>{!! $errors->first('nick')!!} </p>        
             {!! Form::label('r_name', 'Nombre') !!}
-            {!! Form::Text('r_name') !!}              
+            {!! Form::Text('r_name') !!}
+            <p>{{ empty(!$errors->first('name')) ? 'Ingresa un nombre' : '' }}</p>
             {!! Form::label('r_password', 'Contraseña') !!}            
-            {!! Form::password('r_password') !!}                    
+            {!! Form::password('r_password') !!} 
+            <p>{{ empty(!$errors->first('password')) ? 'Ingresa una contraseña' : '' }}</p>                       
             {!! Form::submit('Registrar')!!}
-        {!!Form::close()!!}
+        {!!Form::close()!!}         
     </body>
 </html>

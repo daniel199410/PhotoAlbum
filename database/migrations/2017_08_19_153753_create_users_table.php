@@ -11,14 +11,15 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('Usuarios', function(Blueprint $table){
-            $table->increments('id');
-            $table->string('name');
-            $table->string('nickname');
-            $table->string('password');
-        });
+    public function up(){
+        if (!Schema::hasTable('Usuarios')) {
+            Schema::create('Usuarios', function(Blueprint $table){
+                $table->increments('id');
+                $table->string('name');
+                $table->string('nickname');
+                $table->string('password');
+            });
+        }
     }
 
     /**
@@ -26,8 +27,7 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('Usuarios');
     }
 }
