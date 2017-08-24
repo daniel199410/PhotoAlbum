@@ -26,17 +26,6 @@ class Usuario extends Model
         }
     }
 
-    public function register(){
-        DB::table('Usuarios')->insert(
-            array(
-                'name' => $this->name, 
-                'nickname' => $this->nickname,
-                'password' => $this->password
-            )
-        );
-        return true;
-    }
-
     public function existeNick(){
         return empty(DB::table('Usuarios')->where('nickname', $this->nickname)->get) ? false : true;
     }

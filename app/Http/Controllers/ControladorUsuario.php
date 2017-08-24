@@ -5,7 +5,6 @@ namespace PhotoAlbum\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use PhotoAlbum\Usuario;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ControladorUsuario extends Controller
@@ -21,8 +20,7 @@ class ControladorUsuario extends Controller
         if($usuario->exists()){
             return ":)";
         }else{
-            return redirect('/')->withErrors(array('wrongAuth'=>'Datos incorrectos'));
-            
+            return redirect('/')->withErrors(array('wrongAuth'=>'Datos incorrectos'));           
         }
     }
 
@@ -40,7 +38,7 @@ class ControladorUsuario extends Controller
         if($validator->fails()){
             return redirect('/')->withErrors($validator);
         }elseif($usuario->existeNick()){
-            return redirect('/')->withErrors(array('nick'=>'El nickname ya existe'));
+            return redirect('login')->withErrors(array('nick'=>'El nickname ya existe'));
         }else{
             $user = new Usuario;
             $user->name = $name;
