@@ -12,5 +12,11 @@
 */
 
 Route::get('/', 'ControladorUsuario@index');
+Route::get('inicio', 'ControladorUsuario@inicio');
+
+Route::get('albumController', 'albumController@load');
+
 Route::post('submitLogin', 'ControladorUsuario@login');
 Route::post('submitRegister', 'ControladorUsuario@register');
+
+Route::post('createAlbum', 'albumController@create');

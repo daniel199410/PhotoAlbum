@@ -13,12 +13,17 @@ class ControladorUsuario extends Controller
         return view('login', ['title' => 'Bienvenido']);
     }
 
+    public function inicio(Request $request){
+        return view('start', ['title' => 'Inicio', 'username'=>$request->session()->get('nickname')]);
+    }
+
     public function login(Request $request){
         $nickname = $request->input('nickname');
         $password = $request->input('password');
         $usuario = new Usuario(array('nickname' => $nickname, 'password' => $password));
         if($usuario->exists()){
-            return ":)";
+            $request->session()->put('nickname', $nickname);
+            return redirect('inicio');
         }else{
             return redirect('/')->withErrors(array('wrongAuth'=>'Datos incorrectos'));           
         }

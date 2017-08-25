@@ -1,7 +1,65 @@
+@import url('font-awesome-4.7.0/css/font-awesome.min.css');
+
 p{
     color: red;
+}
+
+ul{
+    list-style-type: none;
+    text-decoration: none;
+}
+ul li a:hover{
+    text-decoration: none;
 }
 .container-wrap{
     width: 60%;
     margin: 0 auto;
+}
+
+/*Botón flotante*/
+.btn-floating-container{
+    position: fixed;
+    left: 80%;
+    bottom: 10%;
+}
+
+.btn-floating{
+    margin: 0 auto;  
+    display: block;
+    width: 60px;
+    height: 60px;
+    background-color: #304FFE;
+    border-radius: 50%;
+}
+
+.btn-info{
+    display: none;
+}
+
+.btn-floating:hover{
+    -webkit-box-shadow: -1px 1px 37px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 1px 37px 0px rgba(0,0,0,0.75);
+    box-shadow: -1px 1px 37px 0px rgba(0,0,0,0.75);   
+}
+
+.btn-floating:hover .btn-info{
+    display: block;
+}
+
+.btn-floating i{
+    color: white;
+    position: absolute;
+    left: 19px;
+    top: 18px;
+    font-size: 2em;
+}
+
+/*Barra de navegación*/
+.navbar-main{
+    margin: 20px 0 10px 0;
+}
+
+.navbar-item{
+    padding-top: 10px;
+    padding-right: 2.5em;
 }
