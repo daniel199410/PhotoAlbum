@@ -17,19 +17,22 @@
                     </div>
                     <ul class="navbar navbar-nav navbar-right navbar-main">
                         <li class="navbar-item"><a href="">Mis álbumes</a></li>
-                        <li class="navbar-item"><a href="">{!! $username !!}</a></li>
+                        <li class="navbar-item"><a href="">{{ $nickname }}</a></li>
                     </ul>
                 </div>
             </nav>
         </header>
         <main>
             <div class="container">
-                -----Imágenes públicas de todo el mundo-------
-                <div class="btn-floating-container">
-                    <a href="imageController" class="btn-floating">
-                        <i class="fa fa-picture-o"></i>
-                    </a>
-                </div>
+                <h1>Escoge los álbumes en los que quieres agregar la imagen</h1>
+                {{ Form::open(['action'=>'albumController@addImage', 'class'=>'form']) }}
+                    @foreach ($albumes as $album)
+                        <div class="checkbox">                        
+                            <label><input type="checkbox" value="{{ $album->name }}" name="albums[]">{{ $album->name }}</label>                       
+                        </div>
+                    @endforeach
+                    {!! Form::submit('Agregar imagen a los álbumes', ['class'=>'btn btn-success']) !!}
+                {{ Form::close() }}
             </div>
         </main>
     </body>

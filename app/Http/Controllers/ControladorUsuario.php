@@ -13,6 +13,14 @@ class ControladorUsuario extends Controller
         return view('login', ['title' => 'Bienvenido']);
     }
 
+    public function reset(Request $request){
+        $request->session()->flush();
+    }
+
+    public function forbidden(){
+        return view('not_found', ['title'=>'404 Página no encontrada']);
+    }
+
     public function inicio(Request $request){
         return view('start', ['title' => 'Inicio', 'username'=>$request->session()->get('nickname')]);
     }

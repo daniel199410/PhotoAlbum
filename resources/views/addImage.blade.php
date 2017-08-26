@@ -17,33 +17,33 @@
                     </div>
                     <ul class="navbar navbar-nav navbar-right navbar-main">
                         <li class="navbar-item"><a href="">Mis álbumes</a></li>
-                        <li class="navbar-item"><a href="">Nombre usuario</a></li>
+                        <li class="navbar-item"><a href="">{!! $username !!}</a></li>
                     </ul>
                 </div>
             </nav>
         </header>
         <main>
             <div class="container">
-                <h1>Crea un album</h1>
-                {!!Form::open(['action'=>'albumController@create', 'class'=>'form'])!!}
+                <h1>Agregar una imagen</h1>
+                {!!Form::open(['action'=>'imageController@add', 'class'=>'form'])!!}
                     <div class="form-group">
-                        {!! Form::label('name', 'Nombre del album', ['class' => 'form-label']) !!}
-                        <input type="text" class="form-control" name="name" />
+                        {!! Form::label('title', 'Título de la imagen', ['class' => 'form-label']) !!}
+                        <input type="text" class="form-control" name="title" />
                     </div>
-                    <p>{{ empty(!$errors->first('name')) ? 'Ingresa un nombre al album' : '' }}</p>
-                    <p>{!! $errors->first('albumExists')!!} </p>
+                    <p>{{ !empty($errors->first('title')) ? 'Ingresa un título a la imagen' : '' }}</p>
+                    <p>{!! $errors->first('imageExists')!!} </p>
                     <div class="form-group">
-                        {!! Form::label('description', 'Descripción del album', ['class' => 'form-label']) !!}
-                        <textarea class="form-control" name="description" rows="5"></textarea>
+                        {!! Form::label('description', 'Descripción de la imagen', ['class' => 'form-label']) !!}
+                        <textarea class="form-control" name="description" rows="5" value="{!!$description = ""!!}"></textarea>
                     </div>
                     <div class="form-group">
                         {!! Form::label('privacity', 'Privacidad', ['class'=>'form-label'])!!}
                         <select class="form-control" name="privacity">
-                            <option>Público</option>
-                            <option>Privado</option>
+                            <option>Pública</option>
+                            <option>Privada</option>
                         </select>
                     </div>
-                    {!! Form::submit('Crear', ['class'=>'btn btn-success'])!!}
+                    {!! Form::submit('Asignar a albumes >>', ['class'=>'btn btn-success'])!!}
                 {!!Form::close()!!}
             </div>
         </main>

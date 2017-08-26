@@ -13,10 +13,19 @@
 
 Route::get('/', 'ControladorUsuario@index');
 Route::get('inicio', 'ControladorUsuario@inicio');
+Route::get('reset', 'ControladorUsuario@reset');
+
+Route::get('404', 'ControladorUsuario@forbidden');
 
 Route::get('albumController', 'albumController@load');
+Route::get('showAlbums', 'albumController@showAlbum');
+
+Route::get('imageController', 'imageController@load');
 
 Route::post('submitLogin', 'ControladorUsuario@login');
 Route::post('submitRegister', 'ControladorUsuario@register');
 
 Route::post('createAlbum', 'albumController@create');
+Route::post('addImageAlbum', 'albumController@addImage');
+
+Route::post('addImage', 'imageController@add');
