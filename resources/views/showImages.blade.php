@@ -10,12 +10,13 @@
                 <div class="col-md-3">
                     <a href="">
                         <figure class="media-container">
-                            <img src="http://lorempixel.com/200/200/" width="200" height="200">
+                            <img src="{{ url('storage/'.$image->photo) }}" width="200" height="200">
                             <figcaption>{{ $image->image_title }}</figcaption>
                         </figure>
                     </a>
                 </div>
             @endforeach
         </div>
+        @include('floating_button')
     </div>
 </main>

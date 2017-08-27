@@ -83,7 +83,7 @@ class albumController extends Controller
         }
         $extension = $request->file('image')->getClientOriginalExtension();
         $image->title = $image->title.'.'.$extension;
-        $image->photo = $request->file('image')->storeAs('images/'.$image->nickname, $image->title.'.'.$extension);
+        $image->photo = $request->file('image')->storeAs($image->nickname, $image->title);
         $image->save();
         if(count($albumes) > 0){
             foreach($albumes as $album):

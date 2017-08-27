@@ -26,6 +26,7 @@ Route::get('editalbum/{album}', 'albumController@edit');
 Route::get('imageController', 'imageController@load');
 Route::get('listImage/{album}', 'imageController@listing');
 
+
 Route::post('submitLogin', 'ControladorUsuario@login');
 Route::post('submitRegister', 'ControladorUsuario@register');
 
@@ -34,3 +35,25 @@ Route::post('addImageAlbum', 'albumController@addImage');
 Route::post('editAlbum', 'albumController@edition');
 
 Route::post('addImage', 'imageController@add');
+
+Route::get('storage/{file}', function ($archivo) {
+    
+    $public_path = public_path();
+    
+    $url = $public_path.'/storage/images/'.$archivo;
+    
+    //verificamos si el archivo existe y lo retornamos
+    
+    if (Storage::exists($archivo))
+    
+    {
+    
+    return response()->download($url);
+    
+    }
+    
+    //si no se encuentra lanzamos un error 404.
+    
+    abort(404);
+    
+});
