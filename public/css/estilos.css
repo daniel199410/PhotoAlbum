@@ -18,6 +18,9 @@ ul li a:hover{
     width: 60%;
     margin: 0 auto;
 }
+.relative{
+    position: relative;
+}
 
 /*Botón flotante*/
 .btn-floating-container{
@@ -73,7 +76,6 @@ ul li a:hover{
     padding-bottom: 24px;
     margin-bottom: 24px;
     overflow: hidden;
-
 }
 
 .media-container:hover{
@@ -94,4 +96,39 @@ ul li a:hover{
 .gallery-herder a{
     padding-top: 20px;
     padding-right: 70px;
+}
+
+/*Visor de imagenes*/
+.visor{
+    overflow: hidden;
+}
+
+.visor img{
+    width: 100%;
+}
+
+.visor-nav{
+    position: absolute;
+    top: 0;  
+    background: black;
+
+}
+
+.visor-nav:hover{
+    background: white;
+}
+
+.visor-nav:hover a{
+    color: black;
+    font-weight: bold;
+}
+
+.visor-nav a{
+    display: block;
+    color: white;
+    padding: 10px;
+}
+
+.visor-nav a i{
+    padding-right: 8px;
 }

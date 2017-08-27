@@ -50,4 +50,11 @@ class imageController extends Controller
         $images = $imageBuilder->getImages($album, $nickname);
         return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$nickname, 'images'=>$images, 'album'=>$album]);
     }
+
+    public function show(Request $request, $image_title){
+        $temp = new Image(['title'=>$image_title]);
+        $nickname = $request->session()->get('nickname');
+        $image = $temp->get($nickname);
+        return view('image', ['title'=>$image_title, 'nickname'=>$nickname, 'image'=>$image]);
+    }
 }

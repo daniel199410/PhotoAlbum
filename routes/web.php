@@ -25,7 +25,7 @@ Route::get('editalbum/{album}', 'albumController@edit');
 
 Route::get('imageController', 'imageController@load');
 Route::get('listImage/{album}', 'imageController@listing');
-
+Route::get('image/{nickname}', 'imageController@show');
 
 Route::post('submitLogin', 'ControladorUsuario@login');
 Route::post('submitRegister', 'ControladorUsuario@register');

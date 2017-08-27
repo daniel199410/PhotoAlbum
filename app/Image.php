@@ -39,6 +39,14 @@ class Image extends Model
         return true;
     }
 
+    public function get($nickname){
+        $image = DB::table('Image')->where([
+            ['nickname', '=', $nickname],
+            ['title', '=', $this->title] 
+        ])->get();
+        return $image[0];
+    }
+
     public function guardar(){
         $temp = new Image;
         $temp->photo = $this->photo;
