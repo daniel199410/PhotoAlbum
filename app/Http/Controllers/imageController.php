@@ -22,7 +22,7 @@ class imageController extends Controller
         $image_data = array('title'=>$title, 'description'=>$description, 'privacity'=>$privacity);
         $image = new Image($image_data);
         $validator = Validator::make($image_data, [
-            'title' => 'required'
+            'title' => 'required',
         ]);
         if($validator->fails()){
             return redirect('imageController')->withErrors($validator);
@@ -30,15 +30,15 @@ class imageController extends Controller
             return redirect('imageController')->withErrors(array('imageExists'=>'Ya tienes una imagen con ese nombre'));
         }else{           
             $image = new Image;
-            $image->photo = 'photo';
-            $image->description = 'desc';
             if($privacity == 'Privado'){
                 $image->privacity = 1;
             }else{
                 $image->privacity = 0;
             }
+            $image->description = $description;
             $image->title = $title;
             $image->nickname = $nickname;
+            $image->photo = $request->file('image');
             $request->session()->push('image_data', $image);
             return redirect('showAlbums');
         }

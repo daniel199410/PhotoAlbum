@@ -19,7 +19,7 @@
                             <option>Pública</option>
                             <option>Privada</option>
                         </select>
-                    </div>
+                    </div>                   
                     {!! Form::submit('Asignar a albumes >>', ['class'=>'btn btn-success'])!!}
                 {!!Form::close()!!}
             </div>

@@ -62,4 +62,9 @@ class ControladorUsuario extends Controller
             return redirect('inicio');
         }
     }
+
+    public function logout(Request $request){
+        $request->session()->flush();
+        return redirect('/');
+    }
 }

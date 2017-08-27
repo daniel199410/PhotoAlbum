@@ -20,6 +20,7 @@
                             <option>Privado</option>
                         </select>
                     </div>
+                    <h3>Sube la imagen</h3>                   
                     {!! Form::submit('Crear', ['class'=>'btn btn-success'])!!}
                 {!!Form::close()!!}
             </div>

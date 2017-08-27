@@ -14,6 +14,7 @@
 Route::get('/', 'ControladorUsuario@index');
 Route::get('inicio', 'ControladorUsuario@inicio');
 Route::get('reset', 'ControladorUsuario@reset');
+Route::get('logout', 'ControladorUsuario@logout');
 
 Route::get('404', 'ControladorUsuario@forbidden');
 

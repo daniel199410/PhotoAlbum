@@ -7,6 +7,7 @@ use PhotoAlbum\Image;
 use PhotoAlbum\imagexalbum;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class albumController extends Controller
 {
@@ -68,11 +69,21 @@ class albumController extends Controller
     public function addImage(Request $request){
         $albumes = $request->input('albums');
         $image_data = $request->session()->get('image_data');
+        $photo = $request->file('image');
+        $validator = Validator::make(array('photo'=>$photo), [
+            'photo' => 'required|image'
+        ]);
+        if($validator->fails()){
+            return redirect('showAlbums')->withErrors($validator);
+        }
         if(empty($image_data[0])){
             return view('not_found', ['title'=> '404: Página no encontrada']);
         }else{
             $image = $image_data[0];
-        }      
+        }
+        $extension = $request->file('image')->getClientOriginalExtension();
+        $image->title = $image->title.'.'.$extension;
+        $image->photo = $request->file('image')->storeAs('images/'.$image->nickname, $image->title.'.'.$extension);
         $image->save();
         if(count($albumes) > 0){
             foreach($albumes as $album):
@@ -86,7 +97,7 @@ class albumController extends Controller
                 $temp->save();               
             endforeach;
             $request->session()->forget('image_data');
-            return "Registrado";
+            return redirect('albums');
         }
     }
 }

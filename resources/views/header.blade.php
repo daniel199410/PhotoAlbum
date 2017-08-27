@@ -7,8 +7,8 @@
                     <h1><a href="{{url('inicio')}}" class="navbar-brand">PhotoAlbum</a></h1>
                 </div>
                 <ul class="navbar navbar-nav navbar-right navbar-main">
-                    <li class="navbar-item"><a href="albums">Mis álbumes</a></li>
-                    <li class="navbar-item"><a href="">{!! $nickname !!}</a></li>
+                    <li class="navbar-item"><a href="{{url('albums')}}">Mis álbumes</a></li>
+                    <li class="navbar-item"><a href="{{url('logout')}}">Salir <i class="fa fa-sign-out"></i></a></li>
                 </ul>
             </div>
         </nav>
