@@ -29,4 +29,14 @@ class imagexalbum extends Model
             ->count('order_number');
         return $count;
     }
+
+    public function getImages($album, $nickname){
+        $images = DB::table('imagexalbum')
+                ->where([
+                    ['album_name', '=', $album],
+                    ['nickname', '=', $nickname]
+                ])
+                ->get();
+        return $images;
+    }
 }

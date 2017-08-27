@@ -27,7 +27,11 @@ class Usuario extends Model
     }
 
     public function existeNick(){
-        return empty(DB::table('Usuarios')->where('nickname', $this->nickname)->get) ? false : true;
+        $nick = DB::table('Usuarios')->where('nickname', $this->nickname)->get();
+        if(!empty($nick[0])){
+            return true;
+        }
+        return false;
     }
 
     public function exists(){

@@ -4,13 +4,14 @@ namespace PhotoAlbum\Http\Controllers;
 
 use Validator;
 use PhotoAlbum\Image;
+use PhotoAlbum\imagexalbum;
 use Illuminate\Http\Request;
 use PhotoAlbum\Http\Controllers\Controller;
 
 class imageController extends Controller
 {
     public function load(Request $request, $data = ""){
-        return view('addImage', ['title'=>'Agregar Imagen', 'username'=>$request->session()->get('nickname'), 'description'=>$data]);
+        return view('addImage', ['title'=>'Agregar Imagen', 'nickname'=>$request->session()->get('nickname'), 'description'=>$data]);
     }
 
     public function add(Request $request){
@@ -41,5 +42,12 @@ class imageController extends Controller
             $request->session()->push('image_data', $image);
             return redirect('showAlbums');
         }
+    }
+
+    public function listing(Request $request, $album){
+        $nickname = $request->session()->get('nickname');
+        $imageBuilder = new imagexalbum();
+        $images = $imageBuilder->getImages($album, $nickname);
+        return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$nickname, 'images'=>$images, 'album'=>$album]);
     }
 }

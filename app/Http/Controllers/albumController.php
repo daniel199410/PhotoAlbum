@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 
 class albumController extends Controller
 {
-    public function load(){
-        return view('crearAlbum', ['title'=>'Crear album']);
+    public function load(Request $request){
+        return view('crearAlbum', ['title'=>'Crear album', 'nickname'=>$request->session()->get('nickname')]);
     }
 
     public function create(Request $request){
@@ -39,8 +39,22 @@ class albumController extends Controller
                 $album->privacity = 0;
             }
             $album->save();
-            return "Registrado";
+            return redirect('albums');
         }
+    }
+
+    public function edit(Request $request, $album){
+        $nickname = $request->session()->get('nickname');
+        $temp = new Album(['name'=>$album]);
+        $album_data = $temp->album($nickname);
+        return view('edit_album_form', ['title'=>'Edición del album '.$album, 'nickname'=>$nickname, 'album'=>$album_data[0]]);
+    }
+
+    public function listing(Request $request){
+        $album = new Album();
+        $nickname = $request->session()->get('nickname');
+        $albums = $album->get($nickname);
+        return view('album_list_link', ['title'=>'Mis albumes', 'nickname'=>$nickname, 'albums'=>$albums]);
     }
 
     public function showAlbum(Request $request){

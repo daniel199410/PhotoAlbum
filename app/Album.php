@@ -37,6 +37,13 @@ class Album extends Model
         return true;
     }
 
+    public function album($nickname){
+        return DB::table('album')->where([
+            ['name', '=', $this->name],
+            ['nickname', '=', $nickname]
+        ])->get();
+    }
+
     public function get($nickname){
         return DB::table('album')->where('nickname', $nickname)->get();
     }

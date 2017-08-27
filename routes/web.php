@@ -19,13 +19,17 @@ Route::get('404', 'ControladorUsuario@forbidden');
 
 Route::get('albumController', 'albumController@load');
 Route::get('showAlbums', 'albumController@showAlbum');
+Route::get('albums', 'albumController@listing');
+Route::get('editalbum/{album}', 'albumController@edit');
 
 Route::get('imageController', 'imageController@load');
+Route::get('listImage/{album}', 'imageController@listing');
 
 Route::post('submitLogin', 'ControladorUsuario@login');
 Route::post('submitRegister', 'ControladorUsuario@register');
 
 Route::post('createAlbum', 'albumController@create');
 Route::post('addImageAlbum', 'albumController@addImage');
+Route::post('editAlbum', 'albumController@edition');
 
 Route::post('addImage', 'imageController@add');

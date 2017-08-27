@@ -8,6 +8,9 @@ ul{
     list-style-type: none;
     text-decoration: none;
 }
+a:hover{
+    text-decoration: none;
+}
 ul li a:hover{
     text-decoration: none;
 }
@@ -62,4 +65,33 @@ ul li a:hover{
 .navbar-item{
     padding-top: 10px;
     padding-right: 2.5em;
+}
+
+/*Galería de albumes*/
+.media-container{
+    max-width: 200px;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+
+}
+
+.media-container:hover{
+    -webkit-box-shadow: -1px 1px 37px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 1px 37px 0px rgba(0,0,0,0.75);
+    box-shadow: -1px 1px 37px 0px rgba(0,0,0,0.75);  
+}
+
+.media-container figcaption{
+    padding: 16px 16px 0 16px;
+}
+
+.gallery-herder{
+    display: flex;
+    justify-content: space-between;
+}
+
+.gallery-herder a{
+    padding-top: 20px;
+    padding-right: 70px;
 }
