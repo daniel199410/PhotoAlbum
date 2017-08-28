@@ -12,8 +12,23 @@
             </article>
         </div>
         <div class="col-md-4">
-            <aside>
-                Comentarios
+            <aside class="aside-comments">
+                <section class="comments">
+                    @foreach($comments as $comment)
+                        <article class="comment">
+                            <h2>{{$comment->nickname}}</h2>
+                            <p>{{$comment->comment}}</p>
+                        </article>
+                    @endforeach
+                </section>
+                <section class="form">
+                    {!!Form::open(['route' => ['user.comment', $image->title, $image->nickname], 'class'=>'form'])!!}
+                        <div class="form-group">
+                            <textarea class="form-control" name="comment" placeholder='Escribe un comentario'></textarea>
+                        </div>                 
+                        {!! Form::submit('Comentar', ['class'=>'btn btn-success'])!!}
+                    {!!Form::close()!!}
+                </section>
             </aside>
         </div>
     </div>

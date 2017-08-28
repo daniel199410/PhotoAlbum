@@ -5,6 +5,7 @@ namespace PhotoAlbum\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use PhotoAlbum\Usuario;
+use PhotoAlbum\comment;
 use Illuminate\Support\Facades\Hash;
 
 class ControladorUsuario extends Controller
@@ -66,5 +67,18 @@ class ControladorUsuario extends Controller
     public function logout(Request $request){
         $request->session()->flush();
         return redirect('/');
+    }
+
+    public function comment(Request $request, $image_title, $nick){
+        $comment = $request->input('comment');
+        if($comment != null){
+            $temp = new comment;
+            $temp->comment = $comment;
+            $temp->image_title = $image_title;
+            $temp->nickname = $request->session()->get('nickname');
+            $temp->img_nick = $nick;
+            $temp->save();
+        }      
+        return redirect('image/'.$nick.'/'.$image_title);
     }
 }

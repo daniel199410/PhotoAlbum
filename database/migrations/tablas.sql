@@ -32,3 +32,14 @@ CREATE TABLE imagexalbum(
     FOREIGN KEY(image_title, nickname) REFERENCES image(title, nickname),
     PRIMARY KEY(album_name, image_title)
 )ENGINE = INNODB;
+
+CREATE TABLE comment(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    comment varchar(255) NOT NULL,
+    image_title VARCHAR(50) NOT NULL,
+    nickname VARCHAR(25) NOT NULL, /*Quien hace el comentario*/
+    img_nick VARCHAR(25) NOT NULL, /*El dueño de la imagen*/
+    FOREIGN KEY(img_nick) REFERENCES image(nickname),
+    FOREIGN KEY(image_title) REFERENCES image(title),
+    FOREIGN KEY(nickname) REFERENCES usuarios(nickname)
+)ENGINE = INNODB;

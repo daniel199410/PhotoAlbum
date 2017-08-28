@@ -132,3 +132,34 @@ ul li a:hover{
 .visor-nav a i{
     padding-right: 8px;
 }
+
+/*Comentarios*/
+.comment h2{
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.comment p{
+    color: black;
+}
+
+.comments{
+    max-height: 400px;
+    overflow: auto;
+}
+
+/*Agregar comentario*/
+.form form{
+    display: flex;
+    justify-content: space-between;
+}
+
+.form form .form-group{
+    width: 75%;
+    margin: 0;
+}
+
+.form form input[type="submit"]{
+    width: 23%;
+    max-height: 34px;
+}

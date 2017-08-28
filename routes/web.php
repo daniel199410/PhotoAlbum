@@ -25,10 +25,14 @@ Route::get('editalbum/{album}', 'albumController@edit');
 
 Route::get('imageController', 'imageController@load');
 Route::get('listImage/{album}', 'imageController@listing');
-Route::get('image/{nickname}', 'imageController@show');
+Route::get('image/{nickname}/{image_title}', 'imageController@show');
 
 Route::post('submitLogin', 'ControladorUsuario@login');
 Route::post('submitRegister', 'ControladorUsuario@register');
+Route::post('comment/{image_title}/{nick}', [
+    'as' => 'user.comment',
+    'uses' => 'ControladorUsuario@comment'
+]);
 
 Route::post('createAlbum', 'albumController@create');
 Route::post('addImageAlbum', 'albumController@addImage');

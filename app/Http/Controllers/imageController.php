@@ -4,6 +4,7 @@ namespace PhotoAlbum\Http\Controllers;
 
 use Validator;
 use PhotoAlbum\Image;
+use PhotoAlbum\comment;
 use PhotoAlbum\imagexalbum;
 use Illuminate\Http\Request;
 use PhotoAlbum\Http\Controllers\Controller;
@@ -51,10 +52,12 @@ class imageController extends Controller
         return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$nickname, 'images'=>$images, 'album'=>$album]);
     }
 
-    public function show(Request $request, $image_title){
+    public function show(Request $request, $nick, $image_title){
         $temp = new Image(['title'=>$image_title]);
         $nickname = $request->session()->get('nickname');
-        $image = $temp->get($nickname);
-        return view('image', ['title'=>$image_title, 'nickname'=>$nickname, 'image'=>$image]);
+        $image = $temp->get($nick);
+        $comment = new Comment();
+        $comments = $comment->get($image_title, $nick);
+        return view('image', ['title'=>$image_title, 'nickname'=>$nick, 'image'=>$image, 'comments'=>$comments]);
     }
 }
