@@ -8,6 +8,7 @@ use PhotoAlbum\comment;
 use PhotoAlbum\imagexalbum;
 use Illuminate\Http\Request;
 use PhotoAlbum\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class imageController extends Controller
 {
@@ -48,6 +49,7 @@ class imageController extends Controller
     public function listing(Request $request, $album){
         $nickname = $request->session()->get('nickname');
         $imageBuilder = new imagexalbum();
+
         $images = $imageBuilder->getImages($album, $nickname);
         return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$nickname, 'images'=>$images, 'album'=>$album]);
     }
@@ -61,5 +63,42 @@ class imageController extends Controller
         return view('image', ['title'=>$image_title, 'nickname'=>$nickname, 'image'=>$image, 'comments'=>$comments]);
     }
 
+    public function formEdit(Request $request, $image_title){
+        $nickname = $request->session()->get('nickname');
+        $image = new Image(['title'=>$image_title]);
+        $image = $image->get($nickname);
+        return view('edit_image', ['title'=>'Editar la imagen '.$image_title, 'nickname'=>$nickname, 'image'=>$image]);
+    }
 
+    public function edit(Request $request, $original_title){
+        $title = $request->input('title');
+        $nickname = $request->session()->get('nickname');
+        $description = $request->input('description');
+        $privacity = $request->input('privacity');
+        $image_data = array('title'=>$title, 'description'=>$description, 'privacity'=> $privacity, 'photo'=>'');
+        $image = new Image($image_data);
+        $validator = Validator::make($image_data, [
+            'title' => 'required',
+            'privacity' => 'required'
+        ]);
+        $temp = new Image(['title'=>$original_title]);
+        $original_image = $temp->get($nickname);
+        if($validator->fails()){
+            return redirect('editImageForm/'.$original_title)->withErrors($validator);
+        }elseif($image->exists($nickname)){
+            return redirect('editImageForm/'.$original_title)->withErrors(array('imageExists'=>'Ya tienes una imagen con ese nombre'));
+        }else{
+            $extension = File::extension($original_title);
+            $priv = $privacity == 'Privado' ? 1 : 0;
+            $image_data = array(
+                'title'=>$title.'.'.$extension, 
+                'description'=>$description, 
+                'privacity'=> $priv, 
+                'photo'=>$nickname.'/'.$title.'.'.$extension);
+            $image = new Image($image_data);
+            $image->edit($nickname, $original_title);
+            return $title;
+            //return redirect('image/'.$nickname.'/'.$title);
+        }
+    }
 }

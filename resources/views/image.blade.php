@@ -9,7 +9,7 @@
                     </figure>
                     @if($image->nickname == $nickname)
                         <nav class="visor-nav">
-                            <a href=""><i class="fa fa-pencil"></i>Editar</a>
+                            <a href="{{url('editImageForm/'.$image->title)}}"><i class="fa fa-pencil"></i>Editar</a>
                         </nav>
                     @endif
                 </article>

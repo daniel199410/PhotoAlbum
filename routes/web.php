@@ -26,6 +26,7 @@ Route::get('editalbum/{album}', 'albumController@edit');
 Route::get('imageController', 'imageController@load');
 Route::get('listImage/{album}', 'imageController@listing');
 Route::get('image/{nickname}/{image_title}', 'imageController@show');
+Route::get('editImageForm/{image_title}', 'imageController@formEdit');
 
 Route::post('submitLogin', 'ControladorUsuario@login');
 Route::post('submitRegister', 'ControladorUsuario@register');
@@ -39,6 +40,10 @@ Route::post('addImageAlbum', 'albumController@addImage');
 Route::post('editAlbum', 'albumController@edition');
 
 Route::post('addImage', 'imageController@add');
+Route::post('edit/{image_title}', [
+    'as' => 'image.edit',
+    'uses' => 'imageController@edit'
+]);
 
 Route::get('storage/{file}', function ($archivo) {
     

@@ -29,7 +29,7 @@ class Image extends Model
     }
 
     public function exists($nickname){
-        $image = DB::table('Image')->where([
+        $image = DB::table('image')->where([
             ['nickname', '=', $nickname],
             ['title', '=', $this->title] 
         ])->get();
@@ -37,6 +37,14 @@ class Image extends Model
             return false;
         }
         return true;
+    }
+
+    public function getId($nickname, $title){
+        $id = DB::table('Image')->select('id')->where([
+            ['nickname', '=', $nickname],
+            ['title', '=', $title]
+        ])->get();
+        return $id;
     }
 
     public function get($nickname){
@@ -60,5 +68,20 @@ class Image extends Model
         $temp->title = $this->title;
         $temp->nickname = $this->nickname;
         echo $temp;
+    }
+
+    public function edit($nickname, $original_title){
+        DB::table('Image')
+        ->where([
+            ['title', '=', $original_title],
+            ['nickname', '=', $nickname]
+        ])
+        ->update([
+            'description' => $this->description, 
+            'title'=>$this->title, 
+            'privacity'=>$this->privacity,
+            'photo'=>$this->photo,
+            'nickname'=>$nickname
+        ]);
     }
 }

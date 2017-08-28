@@ -31,13 +31,13 @@ class imagexalbum extends Model
     }
 
     public function getImages($album, $nickname){
-        $images = DB::table('imagexalbum')
+        $images = DB::table('imagexalbum')->select('*')
                 ->where([
                     ['album_name', '=', $album],
                     ['imagexalbum.nickname', '=', $nickname]
                 ])
                 ->join('image', [
-                    ['image_title', '=', 'image.title'],
+                    ['image_id', '=', 'image.id'],
                     ['imagexalbum.nickname', '=', 'image.nickname']
                 ])
                 ->get();

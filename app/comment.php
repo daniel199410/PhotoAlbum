@@ -21,10 +21,13 @@ class comment extends Model
     }
 
     public function get($image_title, $nickname){
-        $comments = DB::table('comment')->select('comment', 'nickname')->where([
-            ['img_nick', '=', $nickname],
-            ['image_title', '=', $image_title]
-        ])->get();
+        $comments = DB::table('comment')
+            ->where([
+                ['img_nick', '=', $nickname],
+            ])
+            ->join('image', [
+                ['image_id', '=', 'image.id']
+            ])->get();
         return $comments;
     }
 }

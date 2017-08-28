@@ -92,7 +92,8 @@ class albumController extends Controller
                 $temp = new imagexalbum;
                 $temp->order_number = $contador;
                 $temp->album_name = $album;
-                $temp->image_title = $image->title;
+                $id = $image->getId($image->nickname, $image->title);
+                $temp->image_id = $id[0]->id;
                 $temp->nickname = $image->nickname;
                 $temp->save();               
             endforeach;
