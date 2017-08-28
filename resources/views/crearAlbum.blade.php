@@ -7,8 +7,8 @@
                         {!! Form::label('name', 'Nombre del album', ['class' => 'form-label']) !!}
                         <input type="text" class="form-control" name="name" />
                     </div>
-                    <p>{{ empty(!$errors->first('name')) ? 'Ingresa un nombre al album' : '' }}</p>
-                    <p>{!! $errors->first('albumExists')!!} </p>
+                    <p class="error">{{ empty(!$errors->first('name')) ? 'Ingresa un nombre al album' : '' }}</p>
+                    <p class="error">{!! $errors->first('albumExists')!!} </p>
                     <div class="form-group">
                         {!! Form::label('description', 'Descripción del album', ['class' => 'form-label']) !!}
                         <textarea class="form-control" name="description" rows="5"></textarea>

@@ -1,9 +1,5 @@
 @import url('font-awesome-4.7.0/css/font-awesome.min.css');
 
-p{
-    color: red;
-}
-
 ul{
     list-style-type: none;
     text-decoration: none;
@@ -36,6 +32,10 @@ ul li a:hover{
     height: 60px;
     background-color: #304FFE;
     border-radius: 50%;
+}
+
+.error{
+    color: red;
 }
 
 .btn-info{
@@ -131,6 +131,14 @@ ul li a:hover{
 
 .visor-nav a i{
     padding-right: 8px;
+}
+
+.image-footer{
+    margin-top: 15px;
+}
+
+.image-footer h1{
+    font-size: 1.5em;
 }
 
 /*Comentarios*/

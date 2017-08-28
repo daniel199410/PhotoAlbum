@@ -13,7 +13,7 @@
                     {!! Form::password('password', ['class' => 'form-control']) !!}
                 </div>
                 {!! Form::submit('Ingresar', ['class'=>'btn btn-primary'])!!}
-                <p>{!! $errors->first('wrongAuth')!!} </p>
+                <p class="error">{!! $errors->first('wrongAuth')!!} </p>
             {!!Form::close()!!}
             <h2>O Registrate</h2>
             {!!Form::open(array('action'=>'ControladorUsuario@register'))!!}
@@ -21,18 +21,18 @@
                     {!! Form::label('r_nickname', 'Nickname') !!}
                     <input type="text" name="r_nickname" class="form-control">
                 </div>
-                <p>{{ empty(!$errors->first('nickname')) ? 'Ingresa un nickname' : '' }}</p>
-                <p>{!! $errors->first('nick')!!} </p>  
+                <p class="error">{{ empty(!$errors->first('nickname')) ? 'Ingresa un nickname' : '' }}</p>
+                <p class="error">{!! $errors->first('nick')!!} </p>  
                 <div class="form-group">      
                     {!! Form::label('r_name', 'Nombre') !!}
                     <input type="text" name="r_name" class="form-control">
                 </div>
-                <p>{{ empty(!$errors->first('name')) ? 'Ingresa un nombre' : '' }}</p>
+                <p class="error">{{ empty(!$errors->first('name')) ? 'Ingresa un nombre' : '' }}</p>
                 <div class="form-group">
                     {!! Form::label('r_password', 'Contraseña') !!}            
                     {!! Form::password('r_password', ['class' => 'form-control']) !!}
                 </div>
-                <p>{{ empty(!$errors->first('password')) ? 'Ingresa una contraseña' : '' }}</p>                       
+                <p class="error">{{ empty(!$errors->first('password')) ? 'Ingresa una contraseña' : '' }}</p>                       
                 {!! Form::submit('Registrar', ['class'=>'btn btn-success'])!!}
             {!!Form::close()!!}         
         </div>

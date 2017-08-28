@@ -7,8 +7,8 @@
                         {!! Form::label('title', 'Título de la imagen', ['class' => 'form-label']) !!}
                         <input type="text" class="form-control" name="title" />
                     </div>
-                    <p>{{ !empty($errors->first('title')) ? 'Ingresa un título a la imagen' : '' }}</p>
-                    <p>{!! $errors->first('imageExists')!!} </p>
+                    <p class="error">{{ !empty($errors->first('title')) ? 'Ingresa un título a la imagen' : '' }}</p>
+                    <p class="error">{!! $errors->first('imageExists')!!} </p>
                     <div class="form-group">
                         {!! Form::label('description', 'Descripción de la imagen', ['class' => 'form-label']) !!}
                         <textarea class="form-control" name="description" rows="5" value="{!!$description = ""!!}"></textarea>
