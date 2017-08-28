@@ -47,6 +47,11 @@ class Image extends Model
         return $image[0];
     }
 
+    public function getall(){
+        $image = DB::table('Image')->where('privacity', 0)->get();
+        return $image;
+    }
+
     public function guardar(){
         $temp = new Image;
         $temp->photo = $this->photo;

@@ -5,6 +5,7 @@ namespace PhotoAlbum\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use PhotoAlbum\Usuario;
+use PhotoAlbum\Image;
 use PhotoAlbum\comment;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,7 +24,10 @@ class ControladorUsuario extends Controller
     }
 
     public function inicio(Request $request){
-        return view('start', ['title' => 'Inicio', 'nickname'=>$request->session()->get('nickname')]);
+        $temp = new Image();
+        $images = $temp->getAll();
+        //echo $images;
+        return view('start', ['title' => 'Inicio', 'nickname'=>$request->session()->get('nickname'), 'images'=>$images]);
     }
 
     public function login(Request $request){

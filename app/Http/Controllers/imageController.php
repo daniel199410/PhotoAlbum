@@ -31,7 +31,7 @@ class imageController extends Controller
             return redirect('imageController')->withErrors(array('imageExists'=>'Ya tienes una imagen con ese nombre'));
         }else{           
             $image = new Image;
-            if($privacity == 'Privado'){
+            if($privacity == 'Privada'){
                 $image->privacity = 1;
             }else{
                 $image->privacity = 0;
@@ -58,6 +58,8 @@ class imageController extends Controller
         $image = $temp->get($nick);
         $comment = new Comment();
         $comments = $comment->get($image_title, $nick);
-        return view('image', ['title'=>$image_title, 'nickname'=>$nick, 'image'=>$image, 'comments'=>$comments]);
+        return view('image', ['title'=>$image_title, 'nickname'=>$nickname, 'image'=>$image, 'comments'=>$comments]);
     }
+
+
 }

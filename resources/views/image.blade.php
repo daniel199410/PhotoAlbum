@@ -6,9 +6,11 @@
                 <figure class="visor">
                     <img src="{{ url('storage/'.$image->photo) }}">
                 </figure>
-                <nav class="visor-nav">
-                    <a href=""><i class="fa fa-pencil"></i>Editar</a>
-                </nav>
+                @if($image->nickname == $nickname)
+                    <nav class="visor-nav">
+                        <a href=""><i class="fa fa-pencil"></i>Editar</a>
+                    </nav>
+                @endif
             </article>
         </div>
         <div class="col-md-4">
