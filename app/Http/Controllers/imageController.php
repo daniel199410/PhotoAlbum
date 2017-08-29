@@ -85,19 +85,24 @@ class imageController extends Controller
         $original_image = $temp->get($nickname);
         if($validator->fails()){
             return redirect('editImageForm/'.$original_title)->withErrors($validator);
-        }elseif($image->exists($nickname)){
+        }elseif($image->exists($nickname) && $original_title != $title){
             return redirect('editImageForm/'.$original_title)->withErrors(array('imageExists'=>'Ya tienes una imagen con ese nombre'));
         }else{
+            if($original_title == $title){
+                $temp_title = $title;
+            }else{
+                $temp_title = $title.'.'.$extension;
+            }
             $extension = File::extension($original_title);
             $priv = $privacity == 'Privado' ? 1 : 0;
             $image_data = array(
-                'title'=>$title.'.'.$extension, 
+                'title'=>$temp_title, 
                 'description'=>$description, 
                 'privacity'=> $priv, 
-                'photo'=>$nickname.'/'.$title.'.'.$extension);
+                'photo'=>$nickname.'/'.$temp_title);
             $image = new Image($image_data);
             $image->edit($nickname, $original_title);
-            return redirect('image/'.$nickname.'/'.$title.'.'.$extension);
+            return redirect('image/'.$nickname.'/'.$temp_title);
         }
     }
 }
