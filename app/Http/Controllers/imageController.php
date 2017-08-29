@@ -9,6 +9,7 @@ use PhotoAlbum\imagexalbum;
 use Illuminate\Http\Request;
 use PhotoAlbum\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class imageController extends Controller
 {
@@ -88,12 +89,12 @@ class imageController extends Controller
         }elseif($image->exists($nickname) && $original_title != $title){
             return redirect('editImageForm/'.$original_title)->withErrors(array('imageExists'=>'Ya tienes una imagen con ese nombre'));
         }else{
+            $extension = File::extension($original_title);
             if($original_title == $title){
                 $temp_title = $title;
             }else{
                 $temp_title = $title.'.'.$extension;
-            }
-            $extension = File::extension($original_title);
+            }           
             $priv = $privacity == 'Privado' ? 1 : 0;
             $image_data = array(
                 'title'=>$temp_title, 
@@ -101,6 +102,7 @@ class imageController extends Controller
                 'privacity'=> $priv, 
                 'photo'=>$nickname.'/'.$temp_title);
             $image = new Image($image_data);
+            Storage::move($nickname.'/'.$original_title, $nickname.'/'.$temp_title);
             $image->edit($nickname, $original_title);
             return redirect('image/'.$nickname.'/'.$temp_title);
         }
