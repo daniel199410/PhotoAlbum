@@ -97,8 +97,7 @@ class imageController extends Controller
                 'photo'=>$nickname.'/'.$title.'.'.$extension);
             $image = new Image($image_data);
             $image->edit($nickname, $original_title);
-            return $title;
-            //return redirect('image/'.$nickname.'/'.$title);
+            return redirect('image/'.$nickname.'/'.$title.'.'.$extension);
         }
     }
 }

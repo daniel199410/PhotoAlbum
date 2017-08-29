@@ -76,12 +76,13 @@ class ControladorUsuario extends Controller
     public function comment(Request $request, $image_title, $nick){
         $comment = $request->input('comment');
         if($comment != null){
+            $image = new Image();
             $temp = new comment;
+            $id = $image->getId($nick, $image_title);
             $temp->comment = $comment;
-            $temp->image_title = $image_title;
+            $temp->image_id = $id[0]->id;
             $temp->nickname = $request->session()->get('nickname');
-            $temp->img_nick = $nick;
-            $temp->save();
+            $temp->img_nick = $nick; $temp->save();
         }      
         return redirect('image/'.$nick.'/'.$image_title);
     }
