@@ -24,7 +24,7 @@
                 <section class="comments">
                     @foreach($comments as $comment)
                         <article class="comment">
-                            <h2>{{$comment->nickname}}</h2>
+                            <h2>{{$comment->nickname_c}}</h2>
                             <p>{{$comment->comment}}</p>
                         </article>
                     @endforeach

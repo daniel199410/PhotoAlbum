@@ -38,9 +38,9 @@ CREATE TABLE comment(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     comment varchar(255) NOT NULL,
     image_id INT NOT NULL,
-    nickname VARCHAR(25) NOT NULL, /*Quien hace el comentario*/
+    nickname_c VARCHAR(25) NOT NULL, /*Quien hace el comentario*/
     img_nick VARCHAR(25) NOT NULL, /*El dueño de la imagen*/
     FOREIGN KEY(img_nick) REFERENCES image(nickname),
     FOREIGN KEY(image_id) REFERENCES image(ID),
-    FOREIGN KEY(nickname) REFERENCES usuarios(nickname)
+    FOREIGN KEY(nickname_c) REFERENCES usuarios(nickname)
 )ENGINE = INNODB;

@@ -50,7 +50,6 @@ class imageController extends Controller
     public function listing(Request $request, $album){
         $nickname = $request->session()->get('nickname');
         $imageBuilder = new imagexalbum();
-
         $images = $imageBuilder->getImages($album, $nickname);
         return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$nickname, 'images'=>$images, 'album'=>$album]);
     }

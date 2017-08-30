@@ -21,7 +21,7 @@ class comment extends Model
     }
 
     public function get($image_title, $nickname){
-        $comments = DB::table('comment')
+        $comments = DB::table('comment')->select('*')
             ->where([
                 ['img_nick', '=', $nickname],
             ])
