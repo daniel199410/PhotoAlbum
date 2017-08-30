@@ -91,8 +91,11 @@ class imageController extends Controller
             $extension = File::extension($original_title);
             if($original_title == $title){
                 $temp_title = $title;
+            }elseif($original_title == $title.'.'.$extension){
+                $temp_title = $original_title;
             }else{
                 $temp_title = $title.'.'.$extension;
+                Storage::move($nickname.'/'.$original_title, $nickname.'/'.$temp_title);
             }           
             $priv = $privacity == 'Privado' ? 1 : 0;
             $image_data = array(
@@ -100,8 +103,7 @@ class imageController extends Controller
                 'description'=>$description, 
                 'privacity'=> $priv, 
                 'photo'=>$nickname.'/'.$temp_title);
-            $image = new Image($image_data);
-            Storage::move($nickname.'/'.$original_title, $nickname.'/'.$temp_title);
+            $image = new Image($image_data);         
             $image->edit($nickname, $original_title);
             return redirect('image/'.$nickname.'/'.$temp_title);
         }
