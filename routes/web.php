@@ -32,25 +32,3 @@ Route::post('edit/{image_title}', [
     'as' => 'image.edit',
     'uses' => 'imageController@edit'
 ]);
-
-Route::get('storage/{file}', function ($archivo) {
-    
-    $public_path = public_path();
-    
-    $url = $public_path.'/storage/images/'.$archivo;
-    
-    //verificamos si el archivo existe y lo retornamos
-    
-    if (Storage::exists($archivo))
-    
-    {
-    
-    return response()->download($url);
-    
-    }
-    
-    //si no se encuentra lanzamos un error 404.
-    
-    abort(404);
-    
-});
