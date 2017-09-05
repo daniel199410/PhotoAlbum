@@ -26,7 +26,6 @@ class ControladorUsuario extends Controller
     public function inicio(Request $request){
         $temp = new Image();
         $images = $temp->getAll();
-        //echo $images;
         return view('start', ['title' => 'Inicio', 'nickname'=>$request->session()->get('nickname'), 'images'=>$images]);
     }
 
@@ -49,8 +48,8 @@ class ControladorUsuario extends Controller
         $user_data = array('name' => $name,'password' => encrypt($password),'nickname' => $nickname);
         $usuario = new usuario($user_data);
         $validator = Validator::make($user_data, [
-            'password' => 'required',
-            'name' => 'required',
+            'password' => 'required|size:6',
+            'name' => 'required|',
             'nickname' => 'required'
         ]);
         if($validator->fails()){

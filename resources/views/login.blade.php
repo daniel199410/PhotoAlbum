@@ -21,7 +21,7 @@
                     {!! Form::label('r_nickname', 'Nickname') !!}
                     <input type="text" name="r_nickname" class="form-control">
                 </div>
-                <p class="error">{{ empty(!$errors->first('nickname')) ? 'Ingresa un nickname' : '' }}</p>
+                <p class="error">{{ empty(!$errors->first('nickname')) ? 'Ingresa un nombre de usuario' : '' }}</p>
                 <p class="error">{!! $errors->first('nick')!!} </p>  
                 <div class="form-group">      
                     {!! Form::label('r_name', 'Nombre') !!}
@@ -32,7 +32,7 @@
                     {!! Form::label('r_password', 'Contraseña') !!}            
                     {!! Form::password('r_password', ['class' => 'form-control']) !!}
                 </div>
-                <p class="error">{{ empty(!$errors->first('password')) ? 'Ingresa una contraseña' : '' }}</p>                       
+                <p class="error">{{ empty(!$errors->first('password')) ? 'La contraseña debe tener al menos 6 caracteres' : '' }}</p>                       
                 {!! Form::submit('Registrar', ['class'=>'btn btn-success'])!!}
             {!!Form::close()!!}         
         </div>
