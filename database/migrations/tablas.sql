@@ -1,7 +1,8 @@
 CREATE TABLE usuarios(
     nickname VARCHAR(25) NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    tipo VARCHAR(10) NOT NULL DEFAULT "regular"
 )ENGINE = INNODB;
 
 CREATE TABLE album(

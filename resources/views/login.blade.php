@@ -32,7 +32,14 @@
                     {!! Form::label('r_password', 'Contraseña') !!}            
                     {!! Form::password('r_password', ['class' => 'form-control']) !!}
                 </div>
-                <p class="error">{{ empty(!$errors->first('password')) ? 'Ingresa una contraseña' : '' }}</p>                       
+                <p class="error">{{ empty(!$errors->first('password')) ? 'Ingresa una contraseña con almenos seis caracteres' : '' }}</p>
+                <div class="form-group">
+                    {!! Form::label('type', 'Tipo de usuario', ['class'=>'form-label'])!!}
+                    <select class="form-control" name="type">
+                        <option>Regular</option>
+                        <option>Pro</option>
+                    </select>
+                </div>                        
                 {!! Form::submit('Registrar', ['class'=>'btn btn-success'])!!}
             {!!Form::close()!!}         
         </div>

@@ -8,6 +8,7 @@ use PhotoAlbum\Usuario;
 use PhotoAlbum\Image;
 use PhotoAlbum\comment;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class ControladorUsuario extends Controller
 {
@@ -26,7 +27,6 @@ class ControladorUsuario extends Controller
     public function inicio(Request $request){
         $temp = new Image();
         $images = $temp->getAll();
-        //echo $images;
         return view('start', ['title' => 'Inicio', 'nickname'=>$request->session()->get('nickname'), 'images'=>$images]);
     }
 
@@ -46,22 +46,28 @@ class ControladorUsuario extends Controller
         $name = $request->input('r_name');
         $nickname = $request->input('r_nickname');
         $password = $request->input('r_password');
-        $user_data = array('name' => $name,'password' => encrypt($password),'nickname' => $nickname);
+        $type = $request->input('type');
+        $user_data = array('name' => $name,'password' => $password,'nickname' => $nickname, 'type' => $type);
         $usuario = new usuario($user_data);
         $validator = Validator::make($user_data, [
-            'password' => 'required',
+            'password' => 'required|min:6',
             'name' => 'required',
-            'nickname' => 'required'
+            'nickname' => 'required',
+            'type' => [
+                'required',
+                Rule::in(['Regular', 'Pro']),
+            ]           
         ]);
         if($validator->fails()){
             return redirect('/')->withErrors($validator);
         }elseif($usuario->existeNick()){
-            return redirect('/')->withErrors(array('nick'=>'El nickname ya existe'));
+            return redirect('/')->withErrors(array('nick'=>'El nickname ya existe'));          
         }else{
             $user = new Usuario;
             $user->name = $name;
             $user->nickname = $nickname;
             $user->password = Hash::make($password);
+            $user->type = $type;
             $user->save();
             $request->session()->put('nickname', $nickname);
             return redirect('inicio');

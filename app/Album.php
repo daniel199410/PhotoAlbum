@@ -47,4 +47,12 @@ class Album extends Model
     public function get($nickname){
         return DB::table('album')->where('nickname', $nickname)->get();
     }
+
+    public function getAll(){
+        return DB::table('album')->get();
+    }
+
+    public function getIf($nickname){
+        
+    }
 }

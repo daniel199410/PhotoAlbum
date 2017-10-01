@@ -3,6 +3,7 @@
 namespace PhotoAlbum\Http\Controllers;
 
 use PhotoAlbum\Album;
+use PhotoAlbum\Usuario;
 use PhotoAlbum\Image;
 use PhotoAlbum\imagexalbum;
 use Validator;
@@ -56,6 +57,21 @@ class albumController extends Controller
         $nickname = $request->session()->get('nickname');
         $albums = $album->get($nickname);
         return view('album_list_link', ['title'=>'Mis albumes', 'nickname'=>$nickname, 'albums'=>$albums]);
+    }
+
+    public function listingByType(Request $request){
+        $album = new Album();
+        $nickname = $request->session()->get('nickname');
+        $usuario = new Usuario(['nickname'=>$nickname]);
+        $type = $usuario->getType();
+        if($type == "Admin"){
+            $albums = $album->getAll();
+        }elseif($type == "Pro" || $type == "Regular"){
+            $albums = $album->getIf($nickname);
+        }else{
+
+        }
+        return $type;
     }
 
     public function showAlbum(Request $request){

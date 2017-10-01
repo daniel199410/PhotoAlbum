@@ -14,6 +14,7 @@ class Usuario extends Model
     private $nickname;
     private $avatar;
     private $name;
+    private $tipo;
 
     public function __construct($value = null){
         parent::__construct();
@@ -23,7 +24,13 @@ class Usuario extends Model
             $this->nickname = isset($value->nickname) ? $value->nickname : null;
             $this->password = isset($value->password) ? $value->password : null;
             $this->name = isset($value->name) ? $value->name : null;
+            $this->tipo = isset($value->tipo) ? $value->tipo : null;
         }
+    }
+
+    public function getType(){
+        $type = DB::table('Usuarios')->select('type')->where('nickname', $this->nickname)->get();
+        return $type[0]->type;
     }
 
     public function existeNick(){
