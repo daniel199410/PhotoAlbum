@@ -87,8 +87,9 @@ class ControladorUsuario extends Controller
             $id = $image->getId($nick, $image_title);
             $temp->comment = $comment;
             $temp->image_id = $id[0]->id;
-            $temp->nickname = $request->session()->get('nickname');
-            $temp->img_nick = $nick; $temp->save();
+            $temp->nickname_c = $request->session()->get('nickname');
+            $temp->img_nick = $nick; 
+            $temp->save();
         }      
         return redirect('image/'.$nick.'/'.$image_title);
     }

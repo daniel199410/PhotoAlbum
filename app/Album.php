@@ -52,7 +52,15 @@ class Album extends Model
         return DB::table('album')->get();
     }
 
-    public function getIf($nickname){
-        
+    public function getIf($type){
+        $albums = DB::table('Usuarios')->select('*')
+        ->where([
+            ['type', '=', $type]
+        ])
+        ->join('album', [
+            ['Usuarios.nickname', '=', 'album.nickname']
+        ])
+        ->get();
+        return $albums;
     }
 }

@@ -67,7 +67,7 @@ class albumController extends Controller
         if($type == "Admin"){
             $albums = $album->getAll();
         }elseif($type == "Pro" || $type == "Regular"){
-            $albums = $album->getIf($nickname);
+            $albums = $album->getIf($type);
         }else{
 
         }
