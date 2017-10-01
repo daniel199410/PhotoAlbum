@@ -69,7 +69,9 @@ class albumController extends Controller
         }elseif($type == "Pro" || $type == "Regular"){
             $albums = $album->getIf($type);
         }else{
+            return view("not_found");
         }
+        return view('album_list_link_shared', ['title'=>'Mis albumes', 'nickname'=>$nickname, 'albums'=>$albums, 'type'=>$type]);
     }
 
     public function showAlbum(Request $request){

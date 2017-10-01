@@ -47,11 +47,15 @@ class imageController extends Controller
         }
     }
 
-    public function listing(Request $request, $album){        
-        $nickname = $request->session()->get('nickname');
-        $imageBuilder = new imagexalbum();
-        $images = $imageBuilder->getImages($album, $nickname);
-        return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$nickname, 'images'=>$images, 'album'=>$album]);
+    public function listing(Request $request, $album){   
+        if(!empty($request->session()->get('nickname'))){
+            $nickname = $request->session()->get('nickname');
+            $imageBuilder = new imagexalbum();
+            $images = $imageBuilder->getImages($album, $nickname);
+            return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$nickname, 'images'=>$images, 'album'=>$album]);
+        }else{
+            return view('not_found');
+        }
     }
 
     public function show(Request $request, $nick, $image_title){
