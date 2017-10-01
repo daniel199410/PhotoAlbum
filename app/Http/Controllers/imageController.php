@@ -47,7 +47,7 @@ class imageController extends Controller
         }
     }
 
-    public function listing(Request $request, $album){
+    public function listing(Request $request, $album){        
         $nickname = $request->session()->get('nickname');
         $imageBuilder = new imagexalbum();
         $images = $imageBuilder->getImages($album, $nickname);

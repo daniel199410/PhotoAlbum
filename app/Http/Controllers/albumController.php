@@ -69,9 +69,7 @@ class albumController extends Controller
         }elseif($type == "Pro" || $type == "Regular"){
             $albums = $album->getIf($type);
         }else{
-
         }
-        return $type;
     }
 
     public function showAlbum(Request $request){

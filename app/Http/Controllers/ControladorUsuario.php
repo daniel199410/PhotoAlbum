@@ -27,7 +27,10 @@ class ControladorUsuario extends Controller
     public function inicio(Request $request){
         $temp = new Image();
         $images = $temp->getAll();
-        return view('start', ['title' => 'Inicio', 'nickname'=>$request->session()->get('nickname'), 'images'=>$images]);
+        $nick = $request->session()->get("nickname");
+        $user = new Usuario(['nickname' => $nick]);
+        $type = $user->getType();
+        return view('start', ['title' => 'Inicio', 'nickname'=>$request->session()->get('nickname'), 'images'=>$images, 'type'=>$type]);
     }
 
     public function login(Request $request){
@@ -42,13 +45,43 @@ class ControladorUsuario extends Controller
         }
     }
 
+    public function addAdministratorView(Request $request){
+        return view('addAdministrator', ['title' => 'Inicio', 'nickname'=>$request->session()->get('nickname'), 'type'=>"Admin"]);
+    }
+
+    public function registerAdmin(Request $request){
+        $name = $request->input('r_name');
+        $nickname = $request->input('r_nickname');
+        $password = $request->input('r_password');
+        $user_data = array('name' => $name,'password' => $password,'nickname' => $nickname);
+        $usuario = new Usuario($user_data);
+        $validator = Validator::make($user_data, [
+            'password' => 'required|min:6',
+            'name' => 'required',
+            'nickname' => 'required'      
+        ]);
+        if($validator->fails()){
+            return redirect('addAdministratorView')->withErrors($validator);
+        }elseif($usuario->existeNick()){
+            return redirect('addAdministratorView')->withErrors(array('nick'=>'El nickname ya existe'));          
+        }else{
+            $user = new Usuario;
+            $user->name = $name;
+            $user->nickname = $nickname;
+            $user->password = Hash::make($password);
+            $user->type = "Admin";
+            $user->save();
+            return redirect('inicio');
+        }
+    }
+
     public function register(Request $request){
         $name = $request->input('r_name');
         $nickname = $request->input('r_nickname');
         $password = $request->input('r_password');
         $type = $request->input('type');
         $user_data = array('name' => $name,'password' => $password,'nickname' => $nickname, 'type' => $type);
-        $usuario = new usuario($user_data);
+        $usuario = new Usuario($user_data);
         $validator = Validator::make($user_data, [
             'password' => 'required|min:6',
             'name' => 'required',

@@ -3,6 +3,7 @@ Route::get('/', 'ControladorUsuario@index');
 Route::get('inicio', 'ControladorUsuario@inicio');
 Route::get('reset', 'ControladorUsuario@reset');
 Route::get('logout', 'ControladorUsuario@logout');
+Route::get('addAdministratorView', 'ControladorUsuario@addAdministratorView');
 
 Route::get('404', 'ControladorUsuario@forbidden');
 
@@ -19,6 +20,7 @@ Route::get('editImageForm/{image_title}', 'imageController@formEdit');
 
 Route::post('submitLogin', 'ControladorUsuario@login');
 Route::post('submitRegister', 'ControladorUsuario@register');
+Route::post('registerAdmin', 'ControladorUsuario@registerAdmin');
 Route::post('comment/{image_title}/{nick}', [
     'as' => 'user.comment',
     'uses' => 'ControladorUsuario@comment'
