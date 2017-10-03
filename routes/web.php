@@ -14,7 +14,7 @@ Route::get('albumsType', 'albumController@listingByType');
 Route::get('editalbum/{album}', 'albumController@edit');
 
 Route::get('imageController', 'imageController@load');
-Route::get('listImage/{album}', 'imageController@listing');
+Route::get('listImage/{album}/{owner}', 'imageController@listing');
 Route::get('image/{nickname}/{image_title}', 'imageController@show');
 Route::get('editImageForm/{image_title}', 'imageController@formEdit');
 

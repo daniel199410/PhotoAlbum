@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\File;
 class albumController extends Controller
 {
     public function load(Request $request){
-        return view('crearAlbum', ['title'=>'Crear album', 'nickname'=>$request->session()->get('nickname')]);
+        $type = $request->session()->get('type');
+        return view('crearAlbum', ['title'=>'Crear album', 'nickname'=>$request->session()->get('nickname'), 'type'=>$type]);
     }
 
     public function create(Request $request){
@@ -47,39 +48,42 @@ class albumController extends Controller
 
     public function edit(Request $request, $album){
         $nickname = $request->session()->get('nickname');
+        $type = $request->session()->get("type");
         $temp = new Album(['name'=>$album]);
         $album_data = $temp->album($nickname);
-        return view('edit_album_form', ['title'=>'Edición del album '.$album, 'nickname'=>$nickname, 'album'=>$album_data[0]]);
+        return view('edit_album_form', ['title'=>'Edición del album '.$album, 'nickname'=>$nickname, 'album'=>$album_data[0], 'type'=>$type]);
     }
 
     public function listing(Request $request){
         $album = new Album();
         $nickname = $request->session()->get('nickname');
+        $type = $request->session()->get("type");
+        $usuario = new Usuario(['nickname'=>$nickname]);        
         $albums = $album->get($nickname);
-        return view('album_list_link', ['title'=>'Mis albumes', 'nickname'=>$nickname, 'albums'=>$albums]);
+        return view('album_list_link', ['title'=>'Mis albumes', 'nickname'=>$nickname, 'albums'=>$albums, 'type'=>$type]);
     }
 
     public function listingByType(Request $request){
         $album = new Album();
         $nickname = $request->session()->get('nickname');
-        $usuario = new Usuario(['nickname'=>$nickname]);
-        $type = $usuario->getType();
+        $type = $request->session()->get("type");
         if($type == "Admin"){
             $albums = $album->getAll();
         }elseif($type == "Pro" || $type == "Regular"){
             $albums = $album->getIf($type);
         }else{
-            return view("not_found");
+            return view("not_found", ['title'=>'Página no encontrada']);
         }
-        return view('album_list_link_shared', ['title'=>'Mis albumes', 'nickname'=>$nickname, 'albums'=>$albums, 'type'=>$type]);
+        return view('album_list_link_shared', ['title'=>'Todos los albumes', 'nickname'=>$nickname, 'albums'=>$albums, 'type'=>$type]);
     }
 
     public function showAlbum(Request $request){
         $image_data = $request->session()->get('image_data');
         $nickname = $request->session()->get('nickname');
+        $type = $request->session()->get("type");
         $album = new Album();
         $albumes = $album->get($nickname);
-        return view('album_list', ['nickname'=>$request->session()->get('nickname'), 'albumes'=>$albumes, 'title'=>'Tus albumes']);
+        return view('album_list', ['nickname'=>$request->session()->get('nickname'), 'albumes'=>$albumes, 'title'=>'Tus albumes', 'type'=>$type]);
     }
 
     public function addImage(Request $request){

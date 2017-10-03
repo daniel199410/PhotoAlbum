@@ -4,6 +4,7 @@ namespace PhotoAlbum\Http\Controllers;
 
 use Validator;
 use PhotoAlbum\Image;
+use PhotoAlbum\Usuario;
 use PhotoAlbum\comment;
 use PhotoAlbum\imagexalbum;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\Storage;
 class imageController extends Controller
 {
     public function load(Request $request, $data = ""){
-        return view('addImage', ['title'=>'Agregar Imagen', 'nickname'=>$request->session()->get('nickname'), 'description'=>$data]);
+        $type = $request->session()->get('type');
+        return view('addImage', ['title'=>'Agregar Imagen', 'nickname'=>$request->session()->get('nickname'), 'description'=>$data, 'type'=>$type]);
     }
 
     public function add(Request $request){
@@ -47,31 +49,38 @@ class imageController extends Controller
         }
     }
 
-    public function listing(Request $request, $album){   
+    public function listing(Request $request, $album, $albumOwner){   
         if(!empty($request->session()->get('nickname'))){
             $nickname = $request->session()->get('nickname');
-            $imageBuilder = new imagexalbum();
-            $images = $imageBuilder->getImages($album, $nickname);
-            return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$nickname, 'images'=>$images, 'album'=>$album]);
-        }else{
-            return view('not_found');
+            $currentUser = new Usuario(['nickname' => $nickname]);
+            $typeCurrentUser = $currentUser->getType();
+            $user = new Usuario(['nickname' => $albumOwner]);
+            $type = $user->getType();
+            if($type == $typeCurrentUser || $typeCurrentUser == "Admin"){
+                $imageBuilder = new imagexalbum();
+                $images = $imageBuilder->getImages($album, $albumOwner);            
+                return view('showImages', ['title'=>"Album ".$album, 'nickname'=>$albumOwner, 'images'=>$images, 'album'=>$album, 'type'=>$typeCurrentUser]);
+            }              
         }
+        return view("not_found", ['title'=>'Página no encontrada']);
     }
 
     public function show(Request $request, $nick, $image_title){
         $temp = new Image(['title'=>$image_title]);
         $nickname = $request->session()->get('nickname');
+        $type = $request->session()->get('type');
         $image = $temp->get($nick);
         $comment = new Comment();
         $comments = $comment->get($image_title, $nick);
-        return view('image', ['title'=>$image_title, 'nickname'=>$nickname, 'image'=>$image, 'comments'=>$comments]);
+        return view('image', ['title'=>$image_title, 'nickname'=>$nickname, 'image'=>$image, 'comments'=>$comments, 'type'=>$type]);
     }
 
     public function formEdit(Request $request, $image_title){
         $nickname = $request->session()->get('nickname');
+        $type = $request->session()->get('type');
         $image = new Image(['title'=>$image_title]);
         $image = $image->get($nickname);
-        return view('edit_image', ['title'=>'Editar la imagen '.$image_title, 'nickname'=>$nickname, 'image'=>$image]);
+        return view('edit_image', ['title'=>'Editar la imagen '.$image_title, 'nickname'=>$nickname, 'image'=>$image, 'type'=>$type]);
     }
 
     public function edit(Request $request, $original_title){

@@ -3,7 +3,6 @@
     <div class="container">
         <header class="gallery-herder">
             <h1>Galería del album {{$album}}</h1>
-            <!--a href="{{url('editalbum', ['album'=>$album])}}">Editar el album <i class="fa fa-pencil"></i></a-->
         </header>
         <div class="row">
             @foreach($images as $image)

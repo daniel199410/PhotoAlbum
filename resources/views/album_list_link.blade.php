@@ -5,7 +5,7 @@
         <div class="row">
             @foreach($albums as $album)
                 <div class="col-md-3">
-                    <a href="{{url('listImage', ['album'=>$album->name])}}">
+                    <a href="{{url('listImage', ['album'=>$album->name, 'owner'=>$album->nickname])}}">
                         <figure class="media-container">
                             <img src="http://lorempixel.com/200/200/" width="200" height="200">
                             <figcaption>{{ $album->name }}</figcaption>

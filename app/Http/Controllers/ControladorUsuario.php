@@ -29,7 +29,7 @@ class ControladorUsuario extends Controller
         $images = $temp->getAll();
         $nick = $request->session()->get("nickname");
         $user = new Usuario(['nickname' => $nick]);
-        $type = $user->getType();
+        $type = $request->session()->get("type");
         return view('start', ['title' => 'Inicio', 'nickname'=>$request->session()->get('nickname'), 'images'=>$images, 'type'=>$type]);
     }
 
@@ -37,8 +37,10 @@ class ControladorUsuario extends Controller
         $nickname = $request->input('nickname');
         $password = $request->input('password');
         $usuario = new Usuario(array('nickname' => $nickname, 'password' => $password));
+        $type = $usuario->getType();
         if($usuario->exists()){
             $request->session()->put('nickname', $nickname);
+            $request->session()->put('type', $type);
             return redirect('inicio');
         }else{
             return redirect('/')->withErrors(array('wrongAuth'=>'Datos incorrectos'));           
@@ -103,6 +105,7 @@ class ControladorUsuario extends Controller
             $user->type = $type;
             $user->save();
             $request->session()->put('nickname', $nickname);
+            $request->session()->put('type', $type);
             return redirect('inicio');
         }
     }
