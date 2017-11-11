@@ -56,7 +56,7 @@ class Image extends Model
     }
 
     public function getall(){
-        $image = DB::table('Image')->where('privacity', 0)->get();
+        $image = DB::table('Image')->where('privacy', 0)->get();
         return $image;
     }
 
@@ -64,7 +64,7 @@ class Image extends Model
         $temp = new Image;
         $temp->photo = $this->photo;
         $temp->description = $this->description;
-        $temp->privacity = $this->privacity;
+        $temp->privacy = $this->privacy;
         $temp->title = $this->title;
         $temp->nickname = $this->nickname;
         echo $temp;
@@ -79,7 +79,7 @@ class Image extends Model
         ->update([
             'description' => $this->description, 
             'title'=>$this->title, 
-            'privacity'=>$this->privacity,
+            'privacy'=>$this->privacity,
             'photo'=>$this->photo,
             'nickname'=>$nickname
         ]);

@@ -11,7 +11,7 @@ class Album extends Model
     public $timestamps = false;
     private $name;
     private $description;
-    private $privacity;
+    private $privacy;
     private $nickname;
 
     public function __construct($value = null){
@@ -21,7 +21,7 @@ class Album extends Model
         if(is_object($value)){
             $this->description = isset($value->description) ? $value->description : null;
             $this->name = isset($value->name) ? $value->name : null;
-            $this->privacity = isset($value->privacity) ? $value->privacity : null;
+            $this->privacy = isset($value->privacy) ? $value->privacy : null;
             $this->nickname = isset($value->nickname) ? $value->nickname : null;
         }
     }

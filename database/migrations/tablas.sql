@@ -2,13 +2,13 @@ CREATE TABLE usuarios(
     nickname VARCHAR(25) NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    tipo VARCHAR(10) NOT NULL DEFAULT "regular"
+    type VARCHAR(10) NOT NULL DEFAULT "Regular"
 )ENGINE = INNODB;
 
 CREATE TABLE album(
     name VARCHAR(25) NOT NULL,
     description VARCHAR(255),
-    privacity BIT DEFAULT 0, /*0: Público, 1: Privado*/
+    privacy BIT DEFAULT 0, /*0: Público, 1: Privado*/
     nickname VARCHAR(25) NOT NULL,
     FOREIGN KEY (nickname) REFERENCES usuarios(nickname),
     PRIMARY KEY (name, nickname)
@@ -20,7 +20,7 @@ CREATE TABLE image(
     description VARCHAR(255),
     title VARCHAR(50) NOT NULL,
     nickname VARCHAR(25) NOT NULL,
-    privacity BIT DEFAULT 0, /*0: Público, 1: Privado*/
+    privacy BIT DEFAULT 0, /*0: Público, 1: Privado*/
     FOREIGN KEY (nickname) REFERENCES usuarios(nickname),
     PRIMARY KEY (id, nickname)
 )ENGINE = INNODB;

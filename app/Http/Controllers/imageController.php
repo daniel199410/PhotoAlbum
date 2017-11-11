@@ -22,9 +22,9 @@ class imageController extends Controller
     public function add(Request $request){
         $title = $request->input('title');
         $description = $request->input('description');
-        $privacity = $request->input('privacity');
+        $privacy = $request->input('privacy');
         $nickname = $request->session()->get('nickname');
-        $image_data = array('title'=>$title, 'description'=>$description, 'privacity'=>$privacity);
+        $image_data = array('title'=>$title, 'description'=>$description, 'privacy'=>$privacy);
         $image = new Image($image_data);
         $validator = Validator::make($image_data, [
             'title' => 'required',
@@ -35,10 +35,10 @@ class imageController extends Controller
             return redirect('imageController')->withErrors(array('imageExists'=>'Ya tienes una imagen con ese nombre'));
         }else{           
             $image = new Image;
-            if($privacity == 'Privada'){
-                $image->privacity = 1;
+            if($privacy == 'Privada'){
+                $image->privacy = 1;
             }else{
-                $image->privacity = 0;
+                $image->privacy = 0;
             }
             $image->description = $description;
             $image->title = $title;
@@ -87,12 +87,12 @@ class imageController extends Controller
         $title = $request->input('title');
         $nickname = $request->session()->get('nickname');
         $description = $request->input('description');
-        $privacity = $request->input('privacity');
-        $image_data = array('title'=>$title, 'description'=>$description, 'privacity'=> $privacity, 'photo'=>'');
+        $privacy = $request->input('privacy');
+        $image_data = array('title'=>$title, 'description'=>$description, 'privacy'=> $privacy, 'photo'=>'');
         $image = new Image($image_data);
         $validator = Validator::make($image_data, [
             'title' => 'required',
-            'privacity' => 'required'
+            'privacy' => 'required'
         ]);
         $temp = new Image(['title'=>$original_title]);
         $original_image = $temp->get($nickname);
@@ -110,11 +110,11 @@ class imageController extends Controller
                 $temp_title = $title.'.'.$extension;
                 Storage::move($nickname.'/'.$original_title, $nickname.'/'.$temp_title);
             }           
-            $priv = $privacity == 'Privado' ? 1 : 0;
+            $priv = $privacy == 'Privado' ? 1 : 0;
             $image_data = array(
                 'title'=>$temp_title, 
                 'description'=>$description, 
-                'privacity'=> $priv, 
+                'privacy'=> $priv, 
                 'photo'=>$nickname.'/'.$temp_title);
             $image = new Image($image_data);         
             $image->edit($nickname, $original_title);

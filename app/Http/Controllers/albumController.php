@@ -21,8 +21,8 @@ class albumController extends Controller
         $name = $request->input('name');
         $description = $request->input('description');
         $nickname = $request->session()->get('nickname');
-        $privacity = $request->input('privacity');
-        $album_data = array('name'=>$name, 'description'=>$description, 'privacity'=>$privacity, 'nickname'=>$nickname);
+        $privacy = $request->input('privacy');
+        $album_data = array('name'=>$name, 'description'=>$description, 'privacy'=>$privacy, 'nickname'=>$nickname);
         $album = new Album($album_data);
         $validator = Validator::make($album_data, [
             'name' => 'required',
@@ -36,10 +36,10 @@ class albumController extends Controller
             $album->name = $name;
             $album->description = $description;
             $album->nickname = $nickname;
-            if($privacity == 'Privado'){
-                $album->privacity = 1;
+            if($privacy == 'Privado'){
+                $album->privacy = 1;
             }else{
-                $album->privacity = 0;
+                $album->privacy = 0;
             }
             $album->save();
             return redirect('albums');
